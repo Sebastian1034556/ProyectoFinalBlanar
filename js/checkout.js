@@ -121,7 +121,7 @@ function cargarProductosDelCarrito() {
             calcularTotalCarrito(carrito)
         } else {
             calcularTotalCarrito(carrito)
-            location.href = home
+            location.href = store
         }
     } catch(e){
         console.error(e)
