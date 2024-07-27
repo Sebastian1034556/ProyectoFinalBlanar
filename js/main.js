@@ -130,8 +130,7 @@ function eliminarDelCarrito(productoSeleccionado,carrito,btnClickeado){
 function ActivarClickBtnCarrito(btnCarrito) {
     btnCarrito.addEventListener("click", () => {
         localStorage.setItem("carrito", JSON.stringify(carrito));
-        const projectPath = "/ProyectoFinalBlanar/";
-        carrito.length > 0 ? location.href = location.origin + projectPath + "checkout.html" : mostrarMensajeCarrito("Primero debe cargar al menos un producto en su carrito", "error", "Error!");
+        carrito.length > 0 ? location.href +=  "checkout.html" : mostrarMensajeCarrito("Primero debe cargar al menos un producto en su carrito", "error", "Error!");
     });
 }
 // #endregion
