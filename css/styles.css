@@ -207,7 +207,7 @@ header div nav a {
 }
 
 /* interacción con los botones js */
-.selected {
+.d-none {
     display: none;
 }
 

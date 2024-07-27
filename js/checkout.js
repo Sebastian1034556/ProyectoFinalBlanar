@@ -3,9 +3,9 @@ const contenedor = document.getElementById("productCardContainer")
 const importeTotalCarrito = document.querySelector("p#importeTotalCarrito")
 const btnComprar = document.querySelector("button#btnComprar")
 const btnVolver = document.querySelector("button.back")
-const home = "index.html"
+const store = "/"
 
-// SweetAlert
+// #region MENSAJES
 //Se retorna una promesa
 function mostrarMensajeCarrito(mensaje, tipo, titulo) {
     return Swal.fire({
@@ -28,7 +28,7 @@ function confirmarCompra() {
         if (result.isConfirmed) {
             mostrarMensajeCarrito("", "success", "¡Muchas gracias por su compra!").then(() => {
                 localStorage.removeItem("carrito");
-                location.href = home;
+                location.href = store;
             });
         }
     });
@@ -43,7 +43,7 @@ function mostrarMensajeToast(mensaje,color){
         }
         }).showToast();
 }
-
+// #endregion
 
 function eliminarElemento(array, id) {
     const index = array.findIndex(elemento => elemento.id === id);
@@ -51,7 +51,7 @@ function eliminarElemento(array, id) {
         array.splice(index, 1);
     }
 }
-
+// Renderizado
 function retornarProductCard({imagen,nombre,precio,id,cantidad}){
     return ` 
             <div class="product-card">
@@ -68,7 +68,7 @@ function retornarProductCard({imagen,nombre,precio,id,cantidad}){
             </div> 
             `
 }
-
+// #region MODIFICAR PRODUCTOS 
 function buscarIdProducto(carrito,productoClickeado){
     let card = productoClickeado.closest(".product-card")
     let h3 = card.querySelector("h3.name")
@@ -82,6 +82,7 @@ function agregarProductoCarrito(carrito,botonesAgregar) {
             let productoClickeado = e.target
             let prod = buscarIdProducto(carrito,productoClickeado)
             prod.cantidad += 1
+            localStorage.setItem("carrito",JSON.stringify(carrito))
             cargarProductosDelCarrito()
         }) 
     })
@@ -92,10 +93,14 @@ function eliminarProductoCarrito(carrito,botonesEliminar){
             let productoClickeado = e.target
             let prod = buscarIdProducto(carrito,productoClickeado)
             prod.cantidad != 1 ? prod.cantidad -= 1 : eliminarElemento(carrito,prod.id)
+            localStorage.setItem("carrito",JSON.stringify(carrito))
             cargarProductosDelCarrito()
         }) 
     })
 }
+// #endregion
+
+// #region CARRITO
 function calcularTotalCarrito(carrito) {
     if (carrito.length > 0) {
         let montoTotalCarrito = carrito.reduce((acc, prod)=> acc + (prod.precio * prod.cantidad) , 0)
@@ -125,6 +130,7 @@ function cargarProductosDelCarrito() {
 }
 
 cargarProductosDelCarrito() 
+// #endregion CARRITO
 
 btnComprar.addEventListener("click", confirmarCompra);
 
@@ -136,6 +142,11 @@ btnVolver.addEventListener("click",()=>{
         confirmButtonText: 'Sí, volver',
         cancelButtonText: 'Cancelar'
     }).then((result) => {
-        if (result.isConfirmed) location.href = home
+        if (result.isConfirmed) location.href = store
     })
+})
+
+const header = document.querySelector("img.logo")
+header.addEventListener("click" , ()=>{
+    location.href = store
 })
