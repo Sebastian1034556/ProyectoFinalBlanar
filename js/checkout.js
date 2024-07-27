@@ -28,7 +28,7 @@ function confirmarCompra() {
         if (result.isConfirmed) {
             mostrarMensajeCarrito("", "success", "¡Muchas gracias por su compra!").then(() => {
                 localStorage.removeItem("carrito");
-                location.href += store;
+                location.href = store;
             });
         }
     });
@@ -121,7 +121,7 @@ function cargarProductosDelCarrito() {
             calcularTotalCarrito(carrito)
         } else {
             calcularTotalCarrito(carrito)
-            location.href += store
+            location.href = store
         }
     } catch(e){
         console.error(e)
@@ -142,11 +142,11 @@ btnVolver.addEventListener("click",()=>{
         confirmButtonText: 'Sí, volver',
         cancelButtonText: 'Cancelar'
     }).then((result) => {
-        if (result.isConfirmed) location.href += store
+        if (result.isConfirmed) location.href = store
     })
 })
 
 const header = document.querySelector("img.logo")
 header.addEventListener("click" , ()=>{
-    location.href += store
+    location.href = store
 })
