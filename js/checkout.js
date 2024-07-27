@@ -3,7 +3,7 @@ const contenedor = document.getElementById("productCardContainer")
 const importeTotalCarrito = document.querySelector("p#importeTotalCarrito")
 const btnComprar = document.querySelector("button#btnComprar")
 const btnVolver = document.querySelector("button.back")
-const store = "/ProyectoFinalBlanar/"
+const store = "index.html"
 
 // #region MENSAJES
 //Se retorna una promesa
@@ -28,7 +28,7 @@ function confirmarCompra() {
         if (result.isConfirmed) {
             mostrarMensajeCarrito("", "success", "¡Muchas gracias por su compra!").then(() => {
                 localStorage.removeItem("carrito");
-                window.location = store;
+                location.href = store;
             });
         }
     });
@@ -121,7 +121,7 @@ function cargarProductosDelCarrito() {
             calcularTotalCarrito(carrito)
         } else {
             calcularTotalCarrito(carrito)
-            window.location = store
+            location.href = store
         }
     } catch(e){
         console.error(e)
@@ -142,11 +142,11 @@ btnVolver.addEventListener("click",()=>{
         confirmButtonText: 'Sí, volver',
         cancelButtonText: 'Cancelar'
     }).then((result) => {
-        if (result.isConfirmed) window.location = store
+        if (result.isConfirmed) location.href = store
     })
 })
 
 const header = document.querySelector("img.logo")
 header.addEventListener("click" , ()=>{
-    window.location = store
+    location.href = store
 })
